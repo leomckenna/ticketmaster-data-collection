@@ -11,7 +11,7 @@ This project is an end-to-end data engineering pipeline that collects real-time 
 ## Structure
 
 
-# Ticketmaster Music Events – Daily Snapshot
+## Ticketmaster Music Events – Daily Snapshot
 
 This repo snapshots **Ticketmaster _Music_ events** for the next 90 days, every day.
 Each run appends to `data/events_history.parquet` and preserves a `snapshot_date`
