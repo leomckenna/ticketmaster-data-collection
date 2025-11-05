@@ -1,5 +1,5 @@
-# Ticketmaster Music Event Data Pipeline
-This project is an end-to-end data engineering pipeline that collects real-time music event data from the Ticketmaster API, processes and stores it in a database for long-term access, and enables downstream exploratory data analysis (EDA) to uncover key insights.
+# Ticketmaster Event Data Pipeline
+This project is an end-to-end data engineering pipeline that collects real-time event data from the Ticketmaster API, processes and stores it in a database for long-term access, and enables downstream exploratory data analysis (EDA) to uncover key insights.
 
 ## Overview
 - Read data from the Ticketmaster API
