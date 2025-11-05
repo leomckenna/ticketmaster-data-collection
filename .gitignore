@@ -6,6 +6,6 @@ venv
 env
 
 Final Project.ipynb
-test.py
+view_data_csv.py
 data/events_history.csv
 
