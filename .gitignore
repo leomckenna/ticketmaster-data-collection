@@ -1,2 +1,11 @@
 .venv
+.env
+.venv/
+.env/
+venv
+env
+
+Final Project.ipynb
+test.py
+data/events_history.csv
 
