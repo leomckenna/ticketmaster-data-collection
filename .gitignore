@@ -5,6 +5,9 @@
 venv
 env
 
+*.db
+data/transformed_data/
+
 Final Project.ipynb
 view_data_csv.py
 data/events_history.csv

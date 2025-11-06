@@ -28,19 +28,18 @@ CREATE TABLE IF NOT EXISTS events (
   type                   TEXT,
   locale                 TEXT,
   status                 TEXT,
-  start_datetime_utc     TIMESTAMP,
-  on_sale_datetime_utc   TIMESTAMP,
-  off_sale_datetime_utc  TIMESTAMP,
-  family                 BOOLEAN,
+  datetime               TIMESTAMP,
+  onsale_date            TIMESTAMP,
+  offsale_date           TIMESTAMP,
   segment                TEXT,
   genre                  TEXT,
   subgenre               TEXT,
+  family                 BOOLEAN,
   artist_id              TEXT REFERENCES artists(artist_id) ON UPDATE CASCADE ON DELETE SET NULL,
-  venue_id               TEXT REFERENCES venues(venue_id) ON UPDATE CASCADE ON DELETE SET NULL,
-  last_updated_utc       TIMESTAMP
+  venue_id               TEXT REFERENCES venues(venue_id) ON UPDATE CASCADE ON DELETE SET NULL
 );
 
-CREATE INDEX IF NOT EXISTS idx_events_start ON events (start_datetime_utc);
+CREATE INDEX IF NOT EXISTS idx_events_datetime ON events (datetime);
 CREATE INDEX IF NOT EXISTS idx_events_venue ON events (venue_id);
 CREATE INDEX IF NOT EXISTS idx_events_artist ON events (artist_id);
 
@@ -54,7 +53,6 @@ CREATE TABLE IF NOT EXISTS event_price_history (
   PRIMARY KEY (event_id, snapshot_date)
 );
 
-CREATE INDEX IF NOT EXISTS idx_price_event ON event_price_history (event_id);
 CREATE INDEX IF NOT EXISTS idx_price_snapshot ON event_price_history (snapshot_date);
 
 

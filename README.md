@@ -45,6 +45,10 @@ DB_URI="sqlite:///ticketmaster.db"
 
 ### Run Data Pipeline
 ```bash
-python -m src.dag.pipeline
+python src/main.py --data ./data/events_history.parquet --db events.db
 ```
-
+| Flag | Description |
+|------|-------------|
+| `--data <path>` | Input raw events parquet file |
+| `--db <path>` | Output SQLite database. Will be created if not present. Recommended at project root. |
+| `--clean` | Optional. Remove intermediate normalized CSVs after successful load. |
