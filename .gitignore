@@ -5,6 +5,7 @@
 venv
 env
 
+data/events_history.parquet
 *.db
 data/transformed_data/
 
