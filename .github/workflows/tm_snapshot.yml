@@ -2,15 +2,15 @@ name: Ticketmaster Daily Snapshot
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 7 * * *"
-  push:
-    branches: [ main ]
-    paths:
-      - "ticketmaster_snapshot.py"
-      - "requirements.txt"
-      - ".github/workflows/tm_snapshot.yml"
-      - "data/**"
+  # schedule:
+  #   - cron: "0 7 * * *"
+  # push:
+  #   branches: [ main ]
+  #   paths:
+  #     - "ticketmaster_snapshot.py"
+  #     - "requirements.txt"
+  #     - ".github/workflows/tm_snapshot.yml"
+  #     - "data/**"
 
 jobs:
   run-snapshot:
