@@ -94,3 +94,8 @@ python src/main.py --data ./data/events_history.parquet --db events.db
 | `--data <path>` | Input raw events parquet file |
 | `--db <path>` | Output SQLite database. Will be created if not present. Recommended at project root. |
 | `--clean` | Optional. Remove intermediate normalized CSVs after successful load. |
+
+## Author
+```
+Leo McKenna, Jill Cusick, Pengyun Wang, Xinyue Yan
+```
