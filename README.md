@@ -5,21 +5,34 @@ This project is an end-to-end data engineering pipeline that collects real-time 
 - Extract Ticketmaster event data via API
 - Normalize and structure the data into relational tables
 - Load structured tables into a SQLite database
-- Perform EDA to derive insights from the prepared dataset
+- Perform EDA to derive insights from a prepared test dataset
 
 ## Structure
 ```
 .
-├── ticketmaster_snapshot.py      # Extract: API → Parquet (daily snapshots)
-├── src/
-│   ├── Transform.py              # Normalize raw event data → CSVs
-│   ├── db/Load.py                # Load normalized tables into SQLite
-│   └── main.py                   # End-to-end transform + load pipeline
+├── .github/
+│   └── workflows/
+│       └── tm_snapshot.yml        # GitHub Actions workflow for daily snapshots
 ├── data/
-│   └── events_history.parquet    # Daily snapshots (auto-generated)
-├── .github/workflows/
-│   └── tm_snapshot.yml           # Optional automated snapshot workflow
-└── requirements.txt
+│   └── .gitkeep                   # Ensures folder exists
+├── src/
+│   ├── db/
+│   │   ├── Load.py                # Load normalized tables into SQLite
+│   │   └── schema.sql             # Database schema definition
+│   │
+│   ├── price_analysis/
+│   │   ├── price_analysis.ipynb   # EDA focusing on ticket prices
+|   |
+│   ├── Analysis.ipynb             # Additional analyses
+│   ├── config.py                  # Config paths/constants (e.g. dirs, file names)
+│   ├── main.py                    # End-to-end transform + load pipeline
+│   ├── post_transform_validate.py # Sanity checks on normalized outputs
+│   ├── ticketmaster_snapshot.py   # API extractor
+│   └── Transform.py               # Raw to normalized relational CSVs
+│
+├── dockerfile                     # Optional containerization
+├── README.md
+└──  requirements.txt
 ```
 
 ## Usage
@@ -67,7 +80,7 @@ This will fetch the latest 90-day “Music” events and append them to ```data/
 
 ### 2. Transform and Load
 
-#### Install dependencies**
+#### Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
