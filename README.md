@@ -2,11 +2,10 @@
 This project is an end-to-end data engineering pipeline that collects real-time event data from the Ticketmaster API, processes and stores it in a database for long-term access, and enables downstream exploratory data analysis (EDA) to uncover key insights.
 
 ## Overview
-- Read data from the Ticketmaster API
+- Extract Ticketmaster event data via API
 - Normalize and structure the data into relational tables
-- Load and persist the data in a SQL database
-- Orchestrate extraction → transform → load using a pipeline script
-- Perform EDA to derive insights from a prepared dataset
+- Load structured tables into a SQLite database
+- Perform EDA to derive insights from the prepared dataset
 
 ## Structure
 ```
@@ -32,7 +31,7 @@ This pipeline uses the Ticketmaster Discovery API, filtered by `classificationNa
 - Running the extractor once either locally or manually via Github Actions will only fetch one snapshot of the next ~90 days of events. 
 - Running the extractor daily is the only way to accumulate a historical dataset that captures changes in event details (new events, cancellations, price updates, venue/time updates, etc.).
 
-#### Run Extractor Locally
+#### **Run Extractor Locally**
 **Install dependencies**
 ```bash
 pip install -r requirements.txt
@@ -61,12 +60,17 @@ This will fetch the latest 90-day “Music” events and append them to ```data/
     - cron: "0 7 * * *"
     ```
     Then push the edited workflow file. GitHub will automatically run the extractor every day at 7:00 UTC. (Extracting on push is disabled by default.)
-    
+
     To disable daily run, keep all triggers (```schedule:```, ```push:```) commented out, and push the changes. 
 4. To run **manually**, go to GitHub → Actions → Ticketmaster Daily Snapshot → Run workflow.
     - This will fetch the latest 90-day “Music” events and append them to ```data/events_history.parquet``` with a `snapshot_date`. If the file does not exist, it will be created. Multiple manual runs on the same day will not pull more data.
 
 ### 2. Transform and Load
+
+#### Install dependencies**
+```bash
+pip install -r requirements.txt
+```
 
 #### Run Data Pipeline Locally
 ```bash
