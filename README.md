@@ -6,9 +6,23 @@ This project is an end-to-end data engineering pipeline that collects real-time 
 - Normalize and structure the data into relational tables
 - Load and persist the data in a SQL database
 - Orchestrate extraction → transform → load using a pipeline script
-- Perform EDA to derive insights from the stored data
+- Perform EDA to derive insights from a prepared dataset
 
 ## Structure
+```
+.
+├── ticketmaster_snapshot.py      # Extract: API → Parquet (daily snapshots)
+├── src/
+│   ├── Transform.py              # Normalize raw event data → CSVs
+│   ├── db/Load.py                # Load normalized tables into SQLite
+│   └── main.py                   # End-to-end transform + load pipeline
+├── data/
+│   └── events_history.parquet    # Daily snapshots (auto-generated)
+├── .github/workflows/
+│   └── tm_snapshot.yml           # Optional automated snapshot workflow
+└── requirements.txt
+
+```
 
 
 ## Ticketmaster Music Events – Daily Snapshot
@@ -31,19 +45,67 @@ so you can analyze how listings evolve over time.
 
 ## Usage
 
-### Install dependencies
+### Extract Raw Ticketmaster Data
+This pipeline uses the Ticketmaster Discovery API:
+
+https://app.ticketmaster.com/discovery/v2/events.json
+
+See the official docs for request parameters and authentication.
+
+Ticketmaster's API has strict rate limits and only returns a rolling ~90-day window of future events. It provides no historical data or versioning. Pulling data daily preserves changing event details, stays within API limits, and builds the dataset required for downstream analytics.
+
+#### Run Extractor Locally
+- *Install dependencies*
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### Set Environment Variables
+- *Set Environment Variables*
+
+Create a `.env` file at root and set the following variables:
+```bash
+TICKETMASTER_API_KEY="YOUR_REAL_KEY"
+```
+
+- *Run the Extract Script*
+
+```bash
+python ticketmaster_snapshot.py
+```
+This will fetch the latest 90-day “Music” events and append them to ```data/events_history.parquet```
+
+
+#### Automated Extractor via Github Actions
+- Fork/clone this repo into your own GitHub account
+- Add your API key at Settings → Secrets and variables → Actions → New secret ```TICKETMASTER_API_KEY```
+
+*Schedule to run daily*
+- Edit and uncomment the schedule in ```.github/workflows/tm_snapshot.yml```
+```
+schedule:
+  - cron: "0 7 * * *"
+```
+The workflow does not run on push by default (disabled).
+
+*Run Manually*
+Go to GitHub → Actions → Ticketmaster Daily Snapshot → Run workflow
+This will fetch the next-90-days of “Music” events and appends to ```data/events_history.parquet```. It will create the parquet file if not exist.
+
+### Transform and Load
+
+#### Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+#### Set Environment Variables
 Create a `.env` file and set the following variables:
 ```bash
 TICKETMASTER_API_KEY="YOUR_REAL_KEY"
-DB_URI="sqlite:///ticketmaster.db"
 ```
 
-### Run Data Pipeline
+#### Run Data Pipeline
 ```bash
 python src/main.py --data ./data/events_history.parquet --db events.db
 ```
