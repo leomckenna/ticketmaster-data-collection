@@ -1,9 +1,3 @@
-#!/usr/bin/env python3
-# main.py
-# Usage:
-#   python src/main.py --data ./data/events_history.parquet --db events.db
-# (optional) --clean
-
 import argparse, subprocess, sys, os
 from pathlib import Path
 from config import TRANSFORMED_DIR 
