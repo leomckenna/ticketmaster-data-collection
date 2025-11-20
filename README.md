@@ -32,23 +32,23 @@ This pipeline uses the Ticketmaster Discovery API, filtered by `classificationNa
 - Running the extractor daily is the only way to accumulate a historical dataset that captures changes in event details (new events, cancellations, price updates, venue/time updates, etc.).
 
 #### Run Extractor Locally
-1. Install dependencies**
+1. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-2. Set Environment Variables**
+2. Set Environment Variables
 
 Create a `.env` file at root and set the following variables.
 ```bash
 TICKETMASTER_API_KEY="YOUR_REAL_KEY"
 ```
 
-3. Run the Extract Script**
+3. Run the Extract Script
 ```bash
 python ticketmaster_snapshot.py
 ```
-    This will fetch the latest 90-day “Music” events and append them to ```data/events_history.parquet``` with a `snapshot_date`. If the file does not exist, it will be created. Multiple manual runs on the same day will not pull more data.
+This will fetch the latest 90-day “Music” events and append them to ```data/events_history.parquet``` with a `snapshot_date`. If the file does not exist, it will be created. Multiple manual runs on the same day will not pull more data.
 
 
 #### Automated Extractor via Github Actions
