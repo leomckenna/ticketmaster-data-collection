@@ -46,51 +46,43 @@ so you can analyze how listings evolve over time.
 ## Usage
 
 ### Extract Raw Ticketmaster Data
-This pipeline uses the Ticketmaster Discovery API:
-
-https://app.ticketmaster.com/discovery/v2/events.json
-
-See the official docs for request parameters and authentication.
+This pipeline uses the Ticketmaster Discovery API: https://app.ticketmaster.com/discovery/v2/events.json. See the official docs for request parameters and authentication.
 
 Ticketmaster's API has strict rate limits and only returns a rolling ~90-day window of future events. It provides no historical data or versioning. Pulling data daily preserves changing event details, stays within API limits, and builds the dataset required for downstream analytics.
 
 #### Run Extractor Locally
-- *Install dependencies*
+**Install dependencies**
 
 ```bash
 pip install -r requirements.txt
 ```
 
-- *Set Environment Variables*
-
-Create a `.env` file at root and set the following variables:
+**Set Environment Variables**: Create a `.env` file at root and set the following variables.
 ```bash
 TICKETMASTER_API_KEY="YOUR_REAL_KEY"
 ```
 
-- *Run the Extract Script*
+**Run the Extract Script**
 
 ```bash
 python ticketmaster_snapshot.py
 ```
-This will fetch the latest 90-day “Music” events and append them to ```data/events_history.parquet```
+This will fetch the latest 90-day “Music” events and append them to ```data/events_history.parquet```.
 
 
 #### Automated Extractor via Github Actions
 - Fork/clone this repo into your own GitHub account
 - Add your API key at Settings → Secrets and variables → Actions → New secret ```TICKETMASTER_API_KEY```
-
-*Schedule to run daily*
-- Edit and uncomment the schedule in ```.github/workflows/tm_snapshot.yml```
-```
-schedule:
-  - cron: "0 7 * * *"
-```
-The workflow does not run on push by default (disabled).
-
-*Run Manually*
-Go to GitHub → Actions → Ticketmaster Daily Snapshot → Run workflow
-This will fetch the next-90-days of “Music” events and appends to ```data/events_history.parquet```. It will create the parquet file if not exist.
+- **Schedule to run daily**
+    - Edit and uncomment the schedule in ```.github/workflows/tm_snapshot.yml```
+    ```
+    schedule:
+    - cron: "0 7 * * *"
+    ```
+    The workflow does not run on push by default (disabled).
+- **Run Manually**
+    - Go to GitHub → Actions → Ticketmaster Daily Snapshot → Run workflow
+    This will fetch the next-90-days of “Music” events and appends to ```data/events_history.parquet```. It will create the parquet file if not exist.
 
 ### Transform and Load
 
