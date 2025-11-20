@@ -21,7 +21,7 @@ This project is an end-to-end data engineering pipeline that collects real-time 
 │   │   └── schema.sql             # Database schema definition
 │   │
 │   ├── price_analysis/
-│   │   ├── price_analysis.ipynb   # EDA focusing on ticket prices
+│   │   └── price_analysis.ipynb   # EDA focusing on ticket prices
 |   |
 │   ├── Analysis.ipynb             # Additional analyses
 │   ├── config.py                  # Config paths/constants (e.g. dirs, file names)
