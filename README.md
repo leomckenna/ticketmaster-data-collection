@@ -20,19 +20,22 @@ This project is an end-to-end data engineering pipeline that collects real-time 
 │   │   ├── Load.py                # Load normalized tables into SQLite
 │   │   └── schema.sql             # Database schema definition
 │   │
-│   ├── price_analysis/
-│   │   └── price_analysis.ipynb   # EDA focusing on ticket prices
+│   ├── Analysis_python/
+│   │   └── analysis_EDA.ipynb     # EDA, focused mostly on ticket prices
+│   │   └── analysis_viz.ipynb     # Viz
+│   ├── Analysis_r/
 |   |
-│   ├── Analysis.ipynb             # Additional analyses
 │   ├── config.py                  # Config paths/constants (e.g. dirs, file names)
 │   ├── main.py                    # End-to-end transform + load pipeline
 │   ├── post_transform_validate.py # Sanity checks on normalized outputs
 │   ├── ticketmaster_snapshot.py   # API extractor
 │   └── Transform.py               # Raw to normalized relational CSVs
 │
-├── dockerfile                     # Optional containerization
+├── dockerfile-python              # Optional containerization of Python files
+├── dockerfile-r                   # Optional containerization of R files
 ├── README.md
 └──  requirements.txt
+└──  install_packages.R
 ```
 
 ## Usage
@@ -83,11 +86,11 @@ This will fetch the latest 90-day “Music” events and append them to ```data/
 #### Install dependencies in terminal 
 #### If you are going to containerize with Docker below, you can skip this step
 
-## Python
+#### Python
 ```bash
 pip install -r requirements.txt
 ```
-## R
+#### R
 ```bash
 Rscript install_packages.R
 ```
@@ -111,7 +114,7 @@ src/post_transform_validate.py
 
 #### Optional: Containerize with Docker
 
-## Python code
+#### Python code
 
 Steps:
 - [ ] Build docker image: `docker build -f dockerfile-python -t analysis-python .`
@@ -119,7 +122,7 @@ Steps:
 
 This will open Jupyter Notebook, and you can run the analysis kernels yourself. 
 
-## R code
+#### R code
 
 Steps:
 - [ ] Build docker image: `docker build -f dockerfile-r -t analysis-r .`
