@@ -23,7 +23,6 @@ This project is an end-to-end data engineering pipeline that collects real-time 
 │   ├── Analysis_python/
 │   │   └── analysis_EDA.ipynb     # EDA, focused mostly on ticket prices
 │   │   └── analysis_viz.ipynb     # Viz
-│   ├── Analysis_r/
 |   |
 │   ├── config.py                  # Config paths/constants (e.g. dirs, file names)
 │   ├── main.py                    # End-to-end transform + load pipeline
@@ -32,10 +31,8 @@ This project is an end-to-end data engineering pipeline that collects real-time 
 │   └── Transform.py               # Raw to normalized relational CSVs
 │
 ├── dockerfile-python              # Optional containerization of Python files
-├── dockerfile-r                   # Optional containerization of R files
 ├── README.md
 └──  requirements.txt
-└──  install_packages.R
 ```
 
 ## Usage
@@ -86,13 +83,8 @@ This will fetch the latest 90-day “Music” events and append them to ```data/
 #### Install dependencies in terminal 
 #### If you are going to containerize with Docker below, you can skip this step
 
-#### Python
 ```bash
 pip install -r requirements.txt
-```
-#### R
-```bash
-Rscript install_packages.R
 ```
 
 #### Run Data Pipeline Locally
@@ -114,19 +106,12 @@ src/post_transform_validate.py
 
 #### Optional: Containerize with Docker
 
-#### Python code
-
 Steps:
 - [ ] Build docker image: `docker build -f dockerfile-python -t analysis-python .`
 - [ ] Run docker image: `docker run analysis-python`
 
 This will open Jupyter Notebook, and you can run the analysis kernels yourself. 
 
-#### R code
-
-Steps:
-- [ ] Build docker image: `docker build -f dockerfile-r -t analysis-r .`
-- [ ] Run docker image: `docker run analysis-r`
 
 This will execute the script for the creation of the RShiny dashboard. 
 
@@ -135,8 +120,6 @@ This will execute the script for the creation of the RShiny dashboard.
 Run the following analysis files:
 - [ ] src/Analysis_python/analysis_EDA.ipynb
 - [ ] src/Analysis_python/analysis_viz.ipynb
-- [ ] src/Analysis_r/
-
 
 ## Author
 ```
