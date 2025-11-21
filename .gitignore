@@ -13,3 +13,5 @@ Final Project.ipynb
 view_data_csv.py
 data/events_history.csv
 
+.DS_Store
+**/.ipynb_checkpoints/

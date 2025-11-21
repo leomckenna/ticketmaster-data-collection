@@ -26,7 +26,7 @@ outdir = Path(args.outdir)
 outdir.mkdir(parents=True, exist_ok=True)
 
 # read raw data file
-df = pd.read_parquet(args.data)
+df = pd.read_parquet(args.data, engine="fastparquet")
 
 # venues
 venues = (
