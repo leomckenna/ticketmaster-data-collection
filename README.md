@@ -80,9 +80,16 @@ This will fetch the latest 90-day “Music” events and append them to ```data/
 
 ### 2. Transform and Load
 
-#### Install dependencies
+#### Install dependencies in terminal 
+#### If you are going to containerize with Docker below, you can skip this step
+
+## Python
 ```bash
 pip install -r requirements.txt
+```
+## R
+```bash
+Rscript install_packages.R
 ```
 
 #### Run Data Pipeline Locally
@@ -94,6 +101,39 @@ python src/main.py --data ./data/events_history.parquet --db events.db
 | `--data <path>` | Input raw events parquet file |
 | `--db <path>` | Output SQLite database. Will be created if not present. Recommended at project root. |
 | `--clean` | Optional. Remove intermediate normalized CSVs after successful load. |
+
+This will create the database, events.db. 
+
+#### Run validation file
+src/post_transform_validate.py
+
+### 3. Run Analyses
+
+#### Optional: Containerize with Docker
+
+## Python code
+
+Steps:
+- [ ] Build docker image: `docker build -f dockerfile-python -t analysis-python .`
+- [ ] Run docker image: `docker run analysis-python`
+
+This will open Jupyter Notebook, and you can run the analysis kernels yourself. 
+
+## R code
+
+Steps:
+- [ ] Build docker image: `docker build -f dockerfile-r -t analysis-r .`
+- [ ] Run docker image: `docker run analysis-r`
+
+This will execute the script for the creation of the RShiny dashboard. 
+
+### Or: Skip containerization
+
+Run the following analysis files:
+- [ ] src/Analysis_python/analysis_EDA.ipynb
+- [ ] src/Analysis_python/analysis_viz.ipynb
+- [ ] src/Analysis_r/
+
 
 ## Author
 ```

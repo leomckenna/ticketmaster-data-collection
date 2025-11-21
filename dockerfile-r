@@ -1,0 +1,15 @@
+# Use the official R image with tidyverse preinstalled
+FROM rocker/tidyverse:latest
+
+# Set working directory
+WORKDIR /app
+
+# Copy your code and install script
+COPY . /app
+
+# Install additional R packages (but do not reinstall tidyverse)
+RUN Rscript -e "if (!requireNamespace('remotes', quietly = TRUE)) install.packages('remotes', repos = 'http://cran.us.r-project.org')" \
+    && Rscript install_packages.R
+
+# Run your main R script
+CMD ["Rscript", "src/Analysis_r/"]
