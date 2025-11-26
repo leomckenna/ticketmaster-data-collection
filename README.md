@@ -130,9 +130,8 @@ Then Jupyter Notebook will be served at: `http://127.0.0.1:8888`. Analysis noteb
 pip install -r requirements.txt
 ```
 
-2. Run analysis notebooks at the folder `src/Analysis_python/`
-
-    For example:
+2. Run analysis notebooks
+For example:
 ```bash
 src/Analysis_python/analysis_EDA.ipynb
 src/Analysis_python/analysis_viz.ipynb
