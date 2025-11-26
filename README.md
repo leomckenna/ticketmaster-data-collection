@@ -125,7 +125,7 @@ docker run -p 8888:8888 analysis-python
 
 Then open `http://127.0.0.1:8888` in your browser and run the analysis notebooks in Jupyter.
 
-### Option B: Run locally 
+#### Option B: Run locally 
 
 1. Install dependencies
 ```bash
