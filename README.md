@@ -76,7 +76,8 @@ This will fetch the latest 90-day “Music” events and append them to ```data/
 
     To disable daily run, keep all triggers (```schedule:```, ```push:```) commented out, and push the changes. 
 4. To run **manually**, go to GitHub → Actions → Ticketmaster Daily Snapshot → Run workflow.
-    - This will fetch the latest 90-day “Music” events and append them to ```data/events_history.parquet``` with a `snapshot_date`. If the file does not exist, it will be created. Multiple manual runs on the same day will not pull more data.
+
+    This will fetch the latest 90-day “Music” events and append them to ```data/events_history.parquet``` with a `snapshot_date`. If the file does not exist, it will be created. Multiple manual runs on the same day will not pull more data.
 
 ### 2. Transform and Load
 
@@ -97,20 +98,30 @@ python src/main.py --data ./data/events_history.parquet --db events.db
 
 This will create the database, events.db. 
 
-#### Run validation file
+#### Validate the Database (Optional)
+```
 src/post_transform_validate.py
+```
+This prints a summary of table row counts and null-rate checks to help verify the integrity of the transformed data.
+
 
 ### 3. Run Analyses
 
 #### Option A: Run in Docker
 
 1. Install and open Docker Desktop.
-2. Build the Docker image
-```docker build -f dockerfile-python -t analysis-python .```
-3. Run the container
-```docker run -p 8888:8888 analysis-python```
 
-Then Jupyter Notebook will be served at: `http://127.0.0.1:8888`. Analysis notebooks are under the folder `src/Analysis_python/`. This will also execute the script for the creation of the RShiny dashboard. 
+2. Build the Docker image
+```bash
+docker build -f dockerfile-python -t analysis-python .
+```
+
+3. Run the container
+```bash
+docker run -p 8888:8888 analysis-python
+```
+
+    Then Jupyter Notebook will be served at: `http://127.0.0.1:8888`. Analysis notebooks are under the folder `src/Analysis_python/`. This will also execute the script for the creation of the RShiny dashboard. 
 
 ### Option B: Run locally 
 
@@ -121,7 +132,7 @@ pip install -r requirements.txt
 
 2. Run analysis notebooks at the folder `src/Analysis_python/`
 
-For example:
+    For example:
 ```bash
 src/Analysis_python/analysis_EDA.ipynb
 src/Analysis_python/analysis_viz.ipynb
