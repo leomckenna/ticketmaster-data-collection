@@ -133,6 +133,7 @@ pip install -r requirements.txt
 ```
 
 2. Run analysis notebooks
+
 For example:
 ```bash
 src/Analysis_python/analysis_EDA.ipynb
