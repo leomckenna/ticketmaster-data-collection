@@ -44,7 +44,7 @@ This pipeline uses the Ticketmaster Discovery API, filtered by `classificationNa
 - Running the extractor once either locally or manually via Github Actions will only fetch one snapshot of the next ~90 days of events. 
 - Running the extractor daily is the only way to accumulate a historical dataset that captures changes in event details (new events, cancellations, price updates, venue/time updates, etc.).
 
-#### Run Extractor Locally
+#### Option A: Run Extractor Locally
 1. Install dependencies
 ```bash
 pip install -r requirements.txt
@@ -64,7 +64,7 @@ python ticketmaster_snapshot.py
 This will fetch the latest 90-day “Music” events and append them to ```data/events_history.parquet``` with a `snapshot_date`. If the file does not exist, it will be created. Multiple manual runs on the same day will not pull more data.
 
 
-#### Automated Extractor via Github Actions
+#### Option B: Automated Extractor via Github Actions
 1. Fork/clone this repo into your own GitHub account
 2. Add your API key under Settings → Secrets and variables → Actions → New secret ```TICKETMASTER_API_KEY```
 3. To run **daily**, edit ```.github/workflows/tm_snapshot.yml``` and uncomment
@@ -107,7 +107,7 @@ This prints a summary of table row counts and null-rate checks to help verify th
 
 ### 3. Run Analyses
 
-Analysis notebooks are under the folder `src/Analysis_python/`.
+The analyses are performed using the "events.db" SQLite database. All analysis notebooks are located in `src/Analysis_python/`.
 
 #### Option A: Run in Docker
 
@@ -133,12 +133,6 @@ pip install -r requirements.txt
 ```
 
 2. Run analysis notebooks
-
-For example:
-```bash
-src/Analysis_python/analysis_EDA.ipynb
-src/Analysis_python/analysis_viz.ipynb
-```
 
 ## Author
 ```
