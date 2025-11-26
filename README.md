@@ -51,7 +51,8 @@ pip install -r requirements.txt
 ```
 
 2. Set Environment Variables    
-    Create a `.env` file at root and set the following variables.
+
+Create a `.env` file at root and set the following variables.
 ```bash
 TICKETMASTER_API_KEY="YOUR_REAL_KEY"
 ```
@@ -60,7 +61,7 @@ TICKETMASTER_API_KEY="YOUR_REAL_KEY"
 ```bash
 python ticketmaster_snapshot.py
 ```
-    This will fetch the latest 90-day “Music” events and append them to ```data/events_history.parquet``` with a `snapshot_date`. If the file does not exist, it will be created. Multiple manual runs on the same day will not pull more data.
+This will fetch the latest 90-day “Music” events and append them to ```data/events_history.parquet``` with a `snapshot_date`. If the file does not exist, it will be created. Multiple manual runs on the same day will not pull more data.
 
 
 #### Automated Extractor via Github Actions
@@ -120,7 +121,7 @@ docker build -f dockerfile-python -t analysis-python .
 docker run -p 8888:8888 analysis-python
 ```
 
-    Then Jupyter Notebook will be served at: `http://127.0.0.1:8888`. Analysis notebooks are under the folder `src/Analysis_python/`. This will also execute the script for the creation of the RShiny dashboard. 
+Then Jupyter Notebook will be served at: `http://127.0.0.1:8888`. Analysis notebooks are under the folder `src/Analysis_python/`. This will also execute the script for the creation of the RShiny dashboard. 
 
 ### Option B: Run locally 
 
