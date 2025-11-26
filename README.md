@@ -50,9 +50,8 @@ This pipeline uses the Ticketmaster Discovery API, filtered by `classificationNa
 pip install -r requirements.txt
 ```
 
-2. Set Environment Variables
-
-Create a `.env` file at root and set the following variables.
+2. Set Environment Variables    
+    Create a `.env` file at root and set the following variables.
 ```bash
 TICKETMASTER_API_KEY="YOUR_REAL_KEY"
 ```
@@ -61,7 +60,7 @@ TICKETMASTER_API_KEY="YOUR_REAL_KEY"
 ```bash
 python ticketmaster_snapshot.py
 ```
-This will fetch the latest 90-day “Music” events and append them to ```data/events_history.parquet``` with a `snapshot_date`. If the file does not exist, it will be created. Multiple manual runs on the same day will not pull more data.
+    This will fetch the latest 90-day “Music” events and append them to ```data/events_history.parquet``` with a `snapshot_date`. If the file does not exist, it will be created. Multiple manual runs on the same day will not pull more data.
 
 
 #### Automated Extractor via Github Actions
@@ -96,7 +95,7 @@ python src/main.py --data ./data/events_history.parquet --db events.db
 | `--db <path>` | Output SQLite database. Will be created if not present. Recommended at project root. |
 | `--clean` | Optional. Remove intermediate normalized CSVs after successful load. |
 
-This will create the database, events.db. 
+This will create or update the database named "events.db". 
 
 #### Validate the Database (Optional)
 ```
