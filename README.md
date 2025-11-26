@@ -107,6 +107,8 @@ This prints a summary of table row counts and null-rate checks to help verify th
 
 ### 3. Run Analyses
 
+Analysis notebooks are under the folder `src/Analysis_python/`.
+
 #### Option A: Run in Docker
 
 1. Install and open Docker Desktop.
@@ -121,7 +123,7 @@ docker build -f dockerfile-python -t analysis-python .
 docker run -p 8888:8888 analysis-python
 ```
 
-Then Jupyter Notebook will be served at: `http://127.0.0.1:8888`. Analysis notebooks are under the folder `src/Analysis_python/`. This will also execute the script for the creation of the RShiny dashboard. 
+Then open `http://127.0.0.1:8888` in your browser and run the analysis notebooks in Jupyter.
 
 ### Option B: Run locally 
 
