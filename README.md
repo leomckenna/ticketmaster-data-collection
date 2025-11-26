@@ -105,7 +105,7 @@ src/post_transform_validate.py
 This prints a summary of table row counts and null-rate checks to help verify the integrity of the transformed data.
 
 
-### 3. Run Analyses
+### 3. Data Analysis
 
 The analyses are performed using the "events.db" SQLite database. All analysis notebooks are located in `src/Analysis_python/`.
 
