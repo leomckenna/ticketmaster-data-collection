@@ -80,9 +80,7 @@ This will fetch the latest 90-day “Music” events and append them to ```data/
 
 ### 2. Transform and Load
 
-#### Install dependencies in terminal 
-#### If you are going to containerize with Docker below, you can skip this step
-
+#### Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
@@ -104,22 +102,30 @@ src/post_transform_validate.py
 
 ### 3. Run Analyses
 
-#### Optional: Containerize with Docker
+#### Option A: Run in Docker
 
-Steps:
-- [ ] Build docker image: `docker build -f dockerfile-python -t analysis-python .`
-- [ ] Run docker image: `docker run analysis-python`
+1. Install and open Docker Desktop.
+2. Build the Docker image
+```docker build -f dockerfile-python -t analysis-python .```
+3. Run the container
+```docker run -p 8888:8888 analysis-python```
 
-This will open Jupyter Notebook, and you can run the analysis kernels yourself. 
+Then Jupyter Notebook will be served at: `http://127.0.0.1:8888`. Analysis notebooks are under the folder `src/Analysis_python/`. This will also execute the script for the creation of the RShiny dashboard. 
 
+### Option B: Run locally 
 
-This will execute the script for the creation of the RShiny dashboard. 
+1. Install dependencies
+```bash
+pip install -r requirements.txt
+```
 
-### Or: Skip containerization
+2. Run analysis notebooks at the folder `src/Analysis_python/`
 
-Run the following analysis files:
-- [ ] src/Analysis_python/analysis_EDA.ipynb
-- [ ] src/Analysis_python/analysis_viz.ipynb
+For example:
+```bash
+src/Analysis_python/analysis_EDA.ipynb
+src/Analysis_python/analysis_viz.ipynb
+```
 
 ## Author
 ```
