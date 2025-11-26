@@ -8,8 +8,7 @@ WORKDIR /app
 COPY . /app
 
 # Install dependencies including Jupyter
-RUN pip install --no-cache-dir -r requirements.txt \
-    && pip install jupyter
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose Jupyter's default port
 EXPOSE 8888
