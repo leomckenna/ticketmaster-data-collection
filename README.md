@@ -138,9 +138,9 @@ pip install -r requirements.txt
 
 #### Dashboard (R Shiny)
 
-This project also includes a deployed interactive R Shiny dashboard for exploring Ticketmaster event data and derived analytics. The dashboard is based on API data collected between November 3, 2025 and November 11, 2025.
+This project also includes a deployed interactive R Shiny dashboard for exploring Ticketmaster event data and analytics. This dashboard is based on API data collected between November 3, 2025 and November 11, 2025.
 
-**Live App:** https://leomckenna.shinyapps.io/ticketmaster-api-dashboard/
+Live App: https://leomckenna.shinyapps.io/ticketmaster-api-dashboard/
 
 
 ## Author
