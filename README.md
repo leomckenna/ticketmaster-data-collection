@@ -101,7 +101,7 @@ This will create or update the database named "events.db".
 
 #### Validate the Database (Optional)
 ```
-src/post_transform_validate.py
+python src/post_transform_validate.py
 ```
 This prints a summary of table row counts and null-rate checks to help verify the integrity of the transformed data.
 
