@@ -6,6 +6,7 @@ This project is an end-to-end data engineering pipeline that collects real-time 
 - Normalize and structure the data into relational tables
 - Load structured tables into a SQLite database
 - Perform EDA to derive insights from a prepared test dataset
+- This project also includes a deployed interactive R Shiny dashboard
 
 ## Structure
 ```
@@ -44,13 +45,13 @@ This pipeline uses the Ticketmaster Discovery API, filtered by `classificationNa
 - Running the extractor once either locally or manually via Github Actions will only fetch one snapshot of the next ~90 days of events. 
 - Running the extractor daily is the only way to accumulate a historical dataset that captures changes in event details (new events, cancellations, price updates, venue/time updates, etc.).
 
-#### Run Extractor Locally
+#### Option A: Run Extractor Locally
 1. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-2. Set Environment Variables
+2. Set Environment Variables    
 
 Create a `.env` file at root and set the following variables.
 ```bash
@@ -64,7 +65,7 @@ python ticketmaster_snapshot.py
 This will fetch the latest 90-day “Music” events and append them to ```data/events_history.parquet``` with a `snapshot_date`. If the file does not exist, it will be created. Multiple manual runs on the same day will not pull more data.
 
 
-#### Automated Extractor via Github Actions
+#### Option B: Automated Extractor via Github Actions
 1. Fork/clone this repo into your own GitHub account
 2. Add your API key under Settings → Secrets and variables → Actions → New secret ```TICKETMASTER_API_KEY```
 3. To run **daily**, edit ```.github/workflows/tm_snapshot.yml``` and uncomment
@@ -76,13 +77,12 @@ This will fetch the latest 90-day “Music” events and append them to ```data/
 
     To disable daily run, keep all triggers (```schedule:```, ```push:```) commented out, and push the changes. 
 4. To run **manually**, go to GitHub → Actions → Ticketmaster Daily Snapshot → Run workflow.
-    - This will fetch the latest 90-day “Music” events and append them to ```data/events_history.parquet``` with a `snapshot_date`. If the file does not exist, it will be created. Multiple manual runs on the same day will not pull more data.
+
+    This will fetch the latest 90-day “Music” events and append them to ```data/events_history.parquet``` with a `snapshot_date`. If the file does not exist, it will be created. Multiple manual runs on the same day will not pull more data.
 
 ### 2. Transform and Load
 
-#### Install dependencies in terminal 
-#### If you are going to containerize with Docker below, you can skip this step
-
+#### Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
@@ -97,31 +97,51 @@ python src/main.py --data ./data/events_history.parquet --db events.db
 | `--db <path>` | Output SQLite database. Will be created if not present. Recommended at project root. |
 | `--clean` | Optional. Remove intermediate normalized CSVs after successful load. |
 
-This will create the database, events.db. 
+This will create or update the database named "events.db". 
 
-#### Run validation file
-src/post_transform_validate.py
-
-### 3. Run Analyses
-
-#### Optional: Containerize with Docker
-
-Steps:
-- [ ] Build docker image: `docker build -f dockerfile-python -t analysis-python .`
-- [ ] Run docker image: `docker run analysis-python`
-
-This will open Jupyter Notebook, and you can run the analysis kernels yourself. 
+#### Validate the Database (Optional)
+```
+python src/post_transform_validate.py
+```
+This prints a summary of table row counts and null-rate checks to help verify the integrity of the transformed data.
 
 
-This will execute the script for the creation of the RShiny dashboard. 
+### 3. Data Analysis
 
-### Or: Skip containerization
+The analyses are performed using the "events.db" SQLite database. All analysis notebooks are located in `src/Analysis_python/`.
 
-Run the following analysis files:
-- [ ] src/Analysis_python/analysis_EDA.ipynb
-- [ ] src/Analysis_python/analysis_viz.ipynb
+#### Option A: Run in Docker
+
+1. Install and open Docker Desktop.
+
+2. Build the Docker image
+```bash
+docker build -f dockerfile-python -t analysis-python .
+```
+
+3. Run the container
+```bash
+docker run -p 8888:8888 analysis-python
+```
+
+Then open `http://127.0.0.1:8888` in your browser and run the analysis notebooks in Jupyter.
+
+#### Option B: Run locally 
+
+1. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+2. Run analysis notebooks
+
+
+#### Dashboard (R Shiny)
+
+This project also includes a deployed interactive R Shiny dashboard for exploring Ticketmaster event data and analytics. This dashboard is based on API data collected between November 3, 2025 and November 11, 2025.
+
+Live App: https://leomckenna.shinyapps.io/ticketmaster-api-dashboard/
+
 
 ## Author
-```
 Leo McKenna, Jill Cusick, Pengyun Wang, Xinyue Yan
-```
