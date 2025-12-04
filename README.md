@@ -6,6 +6,7 @@ This project is an end-to-end data engineering pipeline that collects real-time 
 - Normalize and structure the data into relational tables
 - Load structured tables into a SQLite database
 - Perform EDA to derive insights from a prepared test dataset
+- This project also includes a deployed interactive R Shiny dashboard
 
 ## Structure
 ```
@@ -134,7 +135,13 @@ pip install -r requirements.txt
 
 2. Run analysis notebooks
 
+
+#### Dashboard (R Shiny)
+
+This project also includes a deployed interactive R Shiny dashboard for exploring Ticketmaster event data and derived analytics. The dashboard is based on API data collected between November 3, 2025 and November 11, 2025.
+
+**Live App:** https://leomckenna.shinyapps.io/ticketmaster-api-dashboard/
+
+
 ## Author
-```
 Leo McKenna, Jill Cusick, Pengyun Wang, Xinyue Yan
-```
